@@ -1,35 +1,30 @@
-# Registro de incidente — ingresso indisponível após pagamento recebido
+# Caso fictício de QA — ingresso indisponível após pagamento confirmado
 
-## Resumo
+## Contexto
 
-Uma cliente entrou em contato com o suporte porque havia concluído a compra, mas o ingresso não estava disponível para ela. Ao consultar a compra, confirmei que o valor havia sido recebido e que o ingresso continuava indisponível.
+Este exercício simula o checkout de uma plataforma fictícia de ingressos. Uma cliente conclui a compra. O pedido aparece como pago, mas o ingresso não está disponível na conta dela.
 
-## Resultado esperado e resultado observado
+## Comportamento esperado e simulado
 
-| Resultado esperado | Resultado observado |
+| Esperado | Observado na simulação |
 |---|---|
-| Após o reconhecimento do pagamento, o ingresso fica disponível para a cliente acessar. | O valor da compra havia sido recebido, mas a cliente não conseguia acessar o ingresso. |
+| Depois da confirmação do pagamento, o ingresso fica disponível no pedido correspondente. | O pedido aparece como pago, mas o ingresso não pode ser acessado. |
 
-**Impacto observado** — A cliente precisou acionar o suporte para obter acesso a um ingresso já pago.
+**Impacto no cenário** — A cliente pode precisar acionar o suporte para acessar um ingresso já pago.
 
-## Investigação e atendimento
+## Como eu investigaria
 
-1. Consultei a compra e a situação do pagamento.
-2. Confirmei o recebimento do valor e verifiquei que o ingresso estava indisponível.
-3. Fiz um ajuste manual no registro da compra e pedi à cliente que verificasse novamente a disponibilidade do ingresso.
-4. Registrei o incidente na ferramenta de chamados para investigação pela equipe de desenvolvimento.
-5. Avisei a equipe no canal interno.
+1. Conferiria se o pagamento confirmado está associado ao pedido certo.
+2. Acessaria o pedido novamente para verificar se a indisponibilidade persiste.
+3. Registraria os passos para reproduzir o problema e compararia o resultado esperado com o observado.
+4. Se conseguisse reproduzir o problema em um ambiente de teste, anexaria evidências com dados fictícios ao relatório de defeito.
 
-## Evidências e situação
+## Cenários de teste propostos
 
-- **Evidências registradas** — O chamado interno registra a evidência da indisponibilidade e a referência usada para localizar o pedido.
-- **Atendimento** — Ajuste manual realizado. A confirmação da cliente após a nova verificação não consta no relato.
-- **Investigação técnica** — Incidente encaminhado ao desenvolvimento. A causa e a correção definitiva não foram informadas.
+| ID | Cenário | Resultado esperado |
+|---|---|---|
+| CT-01 | Concluir uma compra com pagamento confirmado e abrir o pedido. | O ingresso fica disponível na conta sem intervenção manual. |
+| CT-02 | Abrir um pedido cujo pagamento ainda está pendente. | O ingresso continua indisponível enquanto o pagamento estiver pendente. |
+| CT-03 | Confirmar o pagamento de um pedido pendente e consultar o pedido novamente. | O ingresso é liberado no pedido certo e aparece uma única vez. |
 
-## Validações sugeridas para a correção
-
-| Cenário | Resultado esperado |
-|---|---|
-| Concluir uma compra e confirmar o pagamento. | O ingresso correspondente fica disponível sem intervenção manual. |
-| Consultar uma compra com pagamento pendente. | O ingresso permanece indisponível até a confirmação do pagamento. |
-| Confirmar o pagamento de um pedido que estava pendente. | O ingresso passa a ficar disponível no pedido correto, sem emissão duplicada. |
+Os cenários acima foram propostos como exercício de documentação e planejamento de testes.
